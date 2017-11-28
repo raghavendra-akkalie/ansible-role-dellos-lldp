@@ -61,7 +61,7 @@ Role variables
 | ``application.code_point_value`` | integer     | Configures differentiated services code point values for MED TLVs advertisement (0 to 63) | dellos9, dellos10 |
 | ``application.vlan_type`` | string: tag, untag | Configures vlan type for the application MED TLvs advertisemnet | dellos10 |
 | ``application.network_policy_id`` | integer | Configures network policy id for the application MED TLVs advertisemnet | dellos10 | 
-| ``application.state`` | string, choices: present*, absent | Removes the application if set to absent. | dellos10 |
+| ``application.state`` | string: present\*,absent | Removes the application if set to absent. | dellos10 |
 | ``med.location_identification`` | list     | Configures MED location identification TLVs advertisement (see ``location_identification.*``) | dellos9 |
 | ``location_identification.loc_info`` | string     | Configures location information for MED TLVs advertisement | dellos9 |
 | ``location_identification.value`` | string     | Configures location information values | dellos9 |
@@ -81,7 +81,7 @@ Role variables
 |  ``<interface name>.enable``  | boolean         | Enables or disables LLDP at the interface level | dellos9 |
 | ``<interface name>.hello`` | integer | Configures LLDP hello interval at the interface level (5 to 180) | dellos9 |
 | ``<interface name>.mode``  | string: rx,tx   | Configures LLDP mode configuration at the interface level | dellos9, dellos10 |
-| ``<interface name>.state`` | string, choices: absent, present   | Configures transmit/receive at the interface level.| dellos10 |
+| ``<interface name>.mode_state`` | string, choices: absent, present   | Configures transmit/receive at the interface level.| dellos10 |
 | ``<interface name>.multiplier`` | integer | Configures LLDP multiplier at the interface level (2 to 10) |  dellos9 |
 | ``<interface name>.dcbx`` | dictionary  | Configures DCBx parameters at the interface level (see ``dcbx.*``)     | dellos9 |
 | ``dcbx.version`` | string     | Configures DCBx version at the interface level  | dellos9 |
@@ -105,11 +105,11 @@ Role variables
 | ``advertise.med`` | dictionary     | Configures MED TLVs advertisement at the interface level (see ``med_tlv.*``) | dellos9, dellos10 |
 | ``med.enable`` | boolean     | Enables interface level med capabilities.| dellos10 |
 | ``med.tlv`` | string | Configures med TLV advertisement at interface level.| dellos10 |
-| ``med.tlv_state`` | string, choices: present*, absent | Removes the interface level MED configuration if set to absent. |dellos10 |
+| ``med.tlv_state`` | string: present\*,absent | Deletes the interface level MED configuration if set to absent |dellos10 |
 | ``med.global_med`` | boolean     | Configures MED TLVs advertisement at the interface level | dellos9 |
 | ``med.application`` | list     | Configures MED TLVs advertisement for the application at the interface level (see ``application.*``) | dellos9, dellos10 |
 | ``application.network_policy_id`` | integer    | Configures the network_policy_id for the application of med.| dellos10 |
-| ``application.state`` | string, choices: present*, absent | Removes the associated network policy id for the application if set to absent.| dellos10 |
+| ``application.state`` | string: present\*,absent | Removes the associated network policy id for the application if set to absent.| dellos10 |
 | ``application.name`` | string     | Configures the application name for MED TLVs advertisement | dellos9 |
 | ``application.vlan_id`` | integer     | Configures the VLAN ID for the application MED TLVs advertisement at the interface level (1 to 4094) | dellos9 |
 | ``application.priority_tagged`` | boolean     | Configures priority tagged for the application MED TLVs advertisement at the interface level; mutually exclusive with *application.vlan_id* | dellos9 |
@@ -119,10 +119,10 @@ Role variables
 | ``location_identification.loc_info`` | string     | Configures location information for MED TLVs advertisement at the interface level | dellos9 |
 | ``location_identification.value`` | string     | Configures the location information value for MED TLVs advertisement at the interface level | dellos9 |
 | ``location_identification.state`` | string: absent,present   | Deletes the interface level MED location information if set to absent | dellos9 |
-| ``advertise.tlv`` | list    | Configures TLVs advertisement at interface level. See the following &lt;interface_name&gt;.tlv.* for each list item.  | dellos10 |
-| ``tlv.name`` | string, choices: basic-tlv, dcbxp, dcbxp-appln, dot1-tlv, dot3-tlv  | Configures corresponding to the tlv name specified at the interface.| dellos10 |
-| ``tlv.value`` | string     | Specifies corresponding tlv value according to the name as a string.| dellos10 |
-| ``tlv.state`` | choices: present*, absent   | Removes the interface level TLVs advertisement if set to absent.| dellos10 |
+| ``advertise.tlv`` | list    | Configures TLVs advertisement at interface level (see `<interface_name>.tlv.*`) | dellos10 |
+| ``tlv.name`` | string: basic-tlv,dcbxp,dcbxp-appln,dot1-tlv,dot3-tlv  | Configures corresponding to the TLV name specified at the interface | dellos10 |
+| ``tlv.value`` | string     | Specifies corresponding TLV value according to the name as a string | dellos10 |
+| ``tlv.state`` | string: present\*,absent   | Deletes the interface level TLVs advertisement if set to absent | dellos10 |
 
 
 Connection variables
