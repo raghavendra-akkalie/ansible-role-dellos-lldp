@@ -8,10 +8,12 @@ galaxy_info:
 
   platforms:
   - name: Dell OS9
+  - name: Dell OS6
 
   galaxy_tags:
     - Networking
     - Dell 
     - EMC
     - OS9
+    - OS6
     - DellEMC
