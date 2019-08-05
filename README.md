@@ -25,16 +25,20 @@ Role variables
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``global_lldp_state`` | string: absent,present   | Deletes LLDP at a global level if set to absent | dellos9 |
 | ``enable``  | boolean         | Enables or disables LLDP at a global level | dellos9, dellos10 |
+| ``interval`` | integer | The interval in seconds to transmit local LLDP data (5 to 32768) | dellos6 |
+| ``hold`` | integer | The interval multiplier to set local LLDP data TTL (2 to 10) | dellos6 |
+| ``notification_interval`` | integer | Configure minimum interval to send remote data change notifications (5 - 3600) | dellos6 |
 | ``hello`` | integer | Configures the global LLDP hello interval (5 to 180) | dellos9 |
 | ``mode``  | string: rx,tx   | Configures global LLDP mode configuration | dellos9 |
 | ``multiplier`` | integer | Configures the global LLDP multiplier (2 to 10) | dellos9, dellos10 |
-| ``reinit`` | integer | Configures the reinit value (1-10) | dellos10 |
+| ``reinit`` | integer | Configures the reinit value (1-10) | dellos6, dellos10 |
+| ``timers`` | dictionary | Configures the LLDP global timer value | dellos6 |
 | ``timer`` | integer | Configures the timer value (5-254) | dellos10 |
 | ``fcoe_priority_bits`` | integer | Configures priority bits for FCoE traffic (1 to FF) |  dellos9 |
 | ``iscsi_priority_bits`` | integer | Configures priority bits for ISCSI traffic (1 to FF) | dellos9 |
 | ``dcbx`` | dictionary  | Configures DCBx parameters at the global level (see ``dcbx.*``)     |  dellos9 |
 | ``dcbx.version`` | string     | Configures the DCBx version | dellos9 |
-| ``advertise`` | dictionary     | Configures TLV advertisement at the global level (see ``advertise.*``)    | dellos9, dellos10 |
+| ``advertise`` | dictionary     | Configures LLDP-MED and TLV advertisement at the global level (see ``advertise.*``) | dellos6, dellos9, dellos10 |
 | ``advertise.dcbx_tlv`` | string     | Configures DCBx TLVs advertisements | dellos9 |
 | ``advertise.dcbx_tlv_state`` | string: present,absent     | Deletes DCBx TLVs advertisement if set to absent | dellos9 |
 | ``advertise.dcbx_appln_tlv`` | string     | Configures DCBx application priority TLVs advertisement | dellos9 |
@@ -50,9 +54,10 @@ Role variables
 | ``advertise.port_descriptor`` | boolean     | Configures global port descriptor advertisement | dellos9 |
 | ``advertise.management_tlv`` | string     | Configures global management TLVs advertisement | dellos9 |
 | ``advertise.management_tlv_state`` | string: absent,present     | Deletes global TLVs advertisement if set to absent | dellos9 |
-| ``advertise.med`` | dictionary     | Configures MED TLVs advertisement (see ``med_tlv.*``) | dellos9, dellos10 |
-| ``med.global_med`` | boolean     | Configures global MED TLVs advertisement | dellos9 |
-| ``med.fast_start_repeat_count`` | integer | Configures med fast start repeat count value on dellos10 devices | dellos10 |
+| ``advertise.med`` | dictionary     | Configures MED TLVs advertisement (see ``med_tlv.*``) | dellos6, dellos9, dellos10 |
+| ``med.global_med`` | boolean     | Configures global MED TLVs advertisement | dellos6, dellos9 |
+| ``med.fast_start_repeat_count`` | integer | Configures med fast start repeat count value (1 to 10) | dellos6, dellos10 |
+| ``med.config_notification`` | boolean | Configure all the ports to send the topology change notification | dellos6 |
 | ``med.application`` | list     | Configures global MED TLVs advertisement for an application (see ``application.*``) | dellos9, dellos10 |
 | ``application.name`` | string     | Configures the application name for MED TLVs advertisement | dellos9, dellos10 |
 | ``application.vlan_id`` | integer     | Configures the VLAN ID for the application MED TLVs advertisement (1 to 4094) | dellos9, dellos10 |
@@ -75,18 +80,22 @@ Role variables
 | ``advertise.port_descriptor`` | boolean     | Configures port descriptor advertisement on the management interface  | dellos9 |
 | ``advertise.management_tlv`` | string     | Configures management TLVs advertisement  | dellos9 |
 | ``advertise.management_tlv_state`` | string: absent,present     | Deletes management TLVs advertisement if set to absent | dellos9 |
-| ``local_interface`` | dictionary     | Configures LLDP at the interface level (see ``local_interface.*``)     |  dellos9, dellos10 |
-| ``local_interface.<interface name>`` | dictionary     | Configures LLDP at the interface level (see ``<interface name>.*``)     | dellos9, dellos10 |
+| ``local_interface`` | dictionary     | Configures LLDP at the interface level (see ``local_interface.*``) | dellos9, dellos9, dellos10 |
+| ``local_interface.<interface name>`` | dictionary     | Configures LLDP at the interface level (see ``<interface name>.*``)     | dellos6, dellos9, dellos10 |
 | ``<interface name>.state`` | string: absent,present   | Deletes LLDP at the interface level if set to absent | dellos9 |
 |  ``<interface name>.enable``  | boolean         | Enables or disables LLDP at the interface level | dellos9 |
 | ``<interface name>.hello`` | integer | Configures LLDP hello interval at the interface level (5 to 180) | dellos9 |
 | ``<interface name>.mode``  | string: rx,tx   | Configures LLDP mode configuration at the interface level | dellos9, dellos10 |
+| ``<interface name>.mode``  | dictionary: rx,tx   | Configures LLDP mode configuration at the interface level | dellos6 |
+| ``<interface name>.mode.tx``  | boolean | Enable/Disable LLDP transmit capability at interface level | dellos6 |
+| ``<interface name>.mode.rx``  | boolean | Enable/Disable LLDP receive capability at interface level | dellos6 |
+| ``<interface name>.notification``  | boolean | Enable/Disable LLDP remote data change notifications at interface level | dellos6 |
 | ``<interface name>.mode_state`` | string: absent,present   | Configures transmit/receive at the interface level.| dellos10 |
 | ``<interface name>.multiplier`` | integer | Configures LLDP multiplier at the interface level (2 to 10) |  dellos9 |
 | ``<interface name>.dcbx`` | dictionary  | Configures DCBx parameters at the interface level (see ``dcbx.*``)     | dellos9 |
 | ``dcbx.version`` | string     | Configures DCBx version at the interface level  | dellos9 |
 | ``dcbx.port_role`` | string     | Configures DCBx port role at the interface level  | dellos9 |
-| ``<interface name>.advertise`` | dictionary     | Configures TLV advertisement at the interface level (see ``advertise.*``)     | dellos9, dellos10 |
+| ``<interface name>.advertise`` | dictionary     | Configures LLDP-MED TLV advertisement at the interface level (see ``advertise.*``)     | dellos6, dellos9, dellos10 |
 | ``advertise.dcbx_tlv`` | string     | Configures DCBx TLVs advertisement at the interface level | dellos9 |
 | ``advertise.dcbx_tlv_state`` | string: present,absent     | Deletes interface level DCBx TLVs advertisement if set to absent | dellos9 |
 | ``advertise.dcbx_appln_tlv`` | string     | Configures DCBx application priority TLVs advertisement at the interface level |  dellos9 |
@@ -102,8 +111,9 @@ Role variables
 | ``advertise.port_descriptor`` | boolean     | Configures port descriptor advertisement at the interface level | dellos9 |
 | ``advertise.management_tlv`` | string     | Configures TLVs advertisement at the interface level | dellos9 | 
 | ``advertise.management_tlv_state`` | string: absent,present     | Deletes TLVs advertisement at the interface level if set to absent | dellos9 |
-| ``advertise.med`` | dictionary     | Configures MED TLVs advertisement at the interface level (see ``med_tlv.*``) | dellos9, dellos10 |
-| ``med.enable`` | boolean     | Enables interface level MED capabilities | dellos10 |
+| ``advertise.med`` | dictionary     | Configures MED TLVs advertisement at the interface level (see ``med_tlv.*``) | dellos6, dellos9, dellos10 |
+| ``med.enable`` | boolean     | Enables interface level MED capabilities | dellos6, dellos10 |
+| ``med.config_notification`` | boolean     | Configure sending the topology change notification | dellos6 |
 | ``med.tlv`` | string | Configures MED TLV advertisement at interface level | dellos10 |
 | ``med.tlv_state`` | string: present\*,absent | Deletes the interface level MED configuration if set to absent | dellos10 |
 | ``med.global_med`` | boolean     | Configures MED TLVs advertisement at the interface level | dellos9 |
