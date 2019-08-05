@@ -1,7 +1,7 @@
 LLDP role
 =========
 
-This role facilitates the configuration of link layer discovery protocol (LLDP) attributes at a global and interface level. It supports the configuration of hello, mode, multiplier, advertise tlvs, management interface, FCoE, ISCSI at global and interface level. This role is abstracted for dellos9 and dellos10.
+This role facilitates the configuration of link layer discovery protocol (LLDP) attributes at a global and interface level. It supports the configuration of hello, mode, multiplier, advertise tlvs, management interface, FCoE, ISCSI at global and interface level. This role is abstracted for dellos6, dellos9 and dellos10.
 
 The LLDP role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables .
 
