@@ -50,7 +50,7 @@ dellos_lldp:
 
 {###############################################################################################}
 {% if dellos_lldp is defined and dellos_lldp %}
-{% for key,value in dellos_lldp.iteritems() %}
+{% for key,value in dellos_lldp.items() %}
   {% if key == "enable" %}
     {% if value %}
 lldp enable
@@ -77,10 +77,10 @@ no lldp timer
     {% endif %}
   {% elif key == "advertise" %}
     {% if value %}
-      {% for ke,valu in value.iteritems() %}
+      {% for ke,valu in value.items() %}
         {% if ke == "med" %}
           {% if valu %}
-            {% for med,val in valu.iteritems() %}
+            {% for med,val in valu.items() %}
               {% if med == "fast_start_repeat_count" %}
                 {% if val %}
 lldp med fast-start-repeat-count {{ val }}
