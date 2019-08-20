@@ -278,4 +278,4 @@ This example uses the *dellos-lldp* role to configure protocol lldp. It creates 
 
     ansible-playbook -i hosts leaf.yaml
 
-(c) 2017 Dell Inc. or its subsidiaries. All Rights Reserved.
+(c) 2017-2019 Dell Inc. or its subsidiaries. All Rights Reserved.
