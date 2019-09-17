@@ -4,7 +4,7 @@
  - name: "Generating LLDP configuration for dellos6"
    template:
       src: dellos6_lldp.j2
-      dest: "{{ build_dir }}/lldp6_{{hostname}}.conf.part"
+      dest: "{{ build_dir }}/lldp6_{{ hostname }}.conf.part"
    when: (ansible_network_os is defined and ansible_network_os == "dellos6") and ((dellos_cfg_generate | default('False')) | bool)
 #   notify: save config os6
    register: generate_output
