@@ -1,8 +1,6 @@
 ---
 # vars file for Dell-Networking.dellos-lldp, below gives a sample configuration
-
 # Sample variables for dellos6 device
-
 dellos_lldp:
   timers:
     reinit:
@@ -26,9 +24,7 @@ dellos_lldp:
           confignotification: true
           enable: true
 
-
 # Sample variables for dellos9 device
-
 dellos_lldp:
    global_lldp_state: present
    enable: false
@@ -120,9 +116,7 @@ dellos_lldp:
              - loc_info: ecs-elin
                value: 12345678911
 
-
 # Sample variables for dellos10 device
-
 dellos_lldp:
   enable: false
   multiplier: 3
@@ -167,4 +161,3 @@ dellos_lldp:
             state: present
           - name: dcbxp
             state: present
- 
